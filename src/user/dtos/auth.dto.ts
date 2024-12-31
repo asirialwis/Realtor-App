@@ -17,3 +17,12 @@ export class SignupDto{
 
     
  }
+
+export class SigninDto{
+
+    @IsEmail()
+    email:string;
+
+    @IsString()
+    password:string;
+ }
