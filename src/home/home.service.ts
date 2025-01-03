@@ -33,14 +33,14 @@ interface UpdateHomeParams {
   price?: number;
   landSize?: number;
   propertyType?: PropertyType;
-  
 }
-
 
 @Injectable()
 export class HomeService {
   constructor(private readonly prismaService: PrismaService) {}
 
+
+  //Get Homes
   async getHomes(filters: HomeFilters): Promise<HomeResponseDto[]> {
     const homes = await this.prismaService.home.findMany({
       select: {
@@ -66,12 +66,7 @@ export class HomeService {
     return homes.map((home) => new HomeResponseDto(home));
   }
 
-
-
-
-
-
-  
+  //Create Home
   async createHome({
     address,
     city,
@@ -106,12 +101,10 @@ export class HomeService {
   }
 
 
-
-
+  //Update Home
   async updateHomeById(data: UpdateHomeParams, id: number) {
     const home = await this.prismaService.home.findUnique({
       where: { id },
-    
     });
 
     if (!home) {
@@ -124,5 +117,29 @@ export class HomeService {
     });
 
     return new HomeResponseDto(updatedHome);
+  }
+
+
+
+
+
+
+  //Delete Home
+  async deleteHomeById(id: number) {
+    const home = await this.prismaService.home.findUnique({
+      where: { id },
+    });
+
+    if (!home) {
+      throw new NotFoundException('Home not found');
+    }
+
+    await this.prismaService.image.deleteMany({
+      where: { home_id: id },
+    });
+
+    await this.prismaService.home.delete({
+      where: { id },
+    });
   }
 }
