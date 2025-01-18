@@ -50,13 +50,6 @@ export class AuthService {
     return token;
   }
 
-
-
-
-
-
-
-
   async signin({ email, password }: SigninParams) {
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -91,17 +84,11 @@ export class AuthService {
     );
   }
 
-
-
-
-
-
-
   async generateProductKey(email: string, userType: UserType) {
     const string = `${email}-${userType}-${process.env.PRODUCT_KEY_SECRET}`;
-   
-    const hashedString =  await bcrypt.hash(string, 10);
-    
+
+    const hashedString = await bcrypt.hash(string, 10);
+
     return hashedString;
   }
 }

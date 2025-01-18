@@ -39,7 +39,6 @@ interface UpdateHomeParams {
 export class HomeService {
   constructor(private readonly prismaService: PrismaService) {}
 
-
   //Get Homes
   async getHomes(filters: HomeFilters): Promise<HomeResponseDto[]> {
     const homes = await this.prismaService.home.findMany({
@@ -100,7 +99,6 @@ export class HomeService {
     return new HomeResponseDto(home);
   }
 
-
   //Update Home
   async updateHomeById(data: UpdateHomeParams, id: number) {
     const home = await this.prismaService.home.findUnique({
@@ -118,11 +116,6 @@ export class HomeService {
 
     return new HomeResponseDto(updatedHome);
   }
-
-
-
-
-
 
   //Delete Home
   async deleteHomeById(id: number) {

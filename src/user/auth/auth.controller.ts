@@ -19,15 +19,18 @@ export class AuthController {
       }
 
       const validProductKey = `${body.email}-${userType}-${process.env.PRODUCT_KEY_SECRET}`;
-     
-      const isValidProductKey = await bcrypt.compare(validProductKey, body.productKey);
 
-        if (!isValidProductKey) {
-            throw new Error('Invalid product key');
-        }
+      const isValidProductKey = await bcrypt.compare(
+        validProductKey,
+        body.productKey,
+      );
+
+      if (!isValidProductKey) {
+        throw new Error('Invalid product key');
+      }
     }
 
-    return this.authService.signup(body , userType);
+    return this.authService.signup(body, userType);
   }
 
   @Post('/signin')

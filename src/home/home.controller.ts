@@ -17,7 +17,6 @@ import { PropertyType } from '@prisma/client';
 export class HomeController {
   constructor(private readonly homeService: HomeService) {}
 
-
   //Get Homes
   @Get()
   getHomes(
@@ -43,7 +42,6 @@ export class HomeController {
     return this.homeService.getHomes(filters);
   }
 
-
   //Create Home
   @Post()
   createHome(@Body() body: CreateHomeDto) {
@@ -58,7 +56,6 @@ export class HomeController {
   ) {
     return this.homeService.updateHomeById(body, id);
   }
-
 
   //Delete` Home
   @Delete(':id')
